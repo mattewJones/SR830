@@ -40,8 +40,11 @@ def update():
         w.data.ampl.append(lockin.get_ampl())
         w.IHM.Ref.display('{:.2f}'.format(w.data.ampl[-1]))
     elif refsel == 3:
-        w.data.harm.append(float(lockin.get_harm())) #belle consistence dans les fonctions 
+        # belle consistence dans les fonctions
+        w.data.harm.append(float(lockin.get_harm()))
         w.IHM.Ref.display('{:.2f}'.format(w.data.harm[-1]))
+
+    w.IHM.AutoPhaseButton.clicked.connect(w.autophase)
 
 
 class SR830_widget(QtWidgets.QWidget):
@@ -130,11 +133,7 @@ class SR830_widget(QtWidgets.QWidget):
         self.IHM.trigsource.setCurrentIndex(int(self.settings.trigsource))
 
     def autophase(self):
-        if self.running:
-            self.timer.stop()
         lockin.auto_phase()
-        if self.running:
-            self.timer.start(200)
 
     def autogain(self):
         if self.running:
