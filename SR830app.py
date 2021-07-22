@@ -44,8 +44,6 @@ def update():
         w.data.harm.append(float(lockin.get_harm()))
         w.IHM.Ref.display('{:.2f}'.format(w.data.harm[-1]))
 
-    w.IHM.AutoPhaseButton.clicked.connect(w.autophase)
-
 
 class SR830_widget(QtWidgets.QWidget):
     """ class for managing the gui """
@@ -65,6 +63,8 @@ class SR830_widget(QtWidgets.QWidget):
         self.getsettings()
 
         self.startmeas()
+
+        self.IHM.AutoPhaseButton.clicked.connect(self.autophase)
 
     def show_window(self):
         self.show()
