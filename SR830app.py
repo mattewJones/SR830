@@ -65,6 +65,10 @@ class SR830_widget(QtWidgets.QWidget):
         self.startmeas()
 
         self.IHM.AutoPhaseButton.clicked.connect(self.autophase)
+        self.IHM.AutoGainButton.clicked.connect(self.autogain)
+        self.IHM.ReserveButton.clicked.connect(self.autoreserve)
+
+        self.IHM.phaesplus90.clicked.connect(self.phaseplus)
 
     def show_window(self):
         self.show()
