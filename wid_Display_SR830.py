@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'wid_Display_SR830.ui'
+# Form implementation generated from reading ui file 'wid_display_SR830.ui'
 #
 # Created by: PyQt5 UI code generator 5.12.3
 #
@@ -303,9 +303,9 @@ class Ui_Form(object):
         self.reference.addItem("")
         self.reference.addItem("")
         self.reference.addItem("")
-        self.phaesplus90 = QtWidgets.QPushButton(self.groupBox_9)
-        self.phaesplus90.setGeometry(QtCore.QRect(10, 50, 51, 23))
-        self.phaesplus90.setObjectName("phaesplus90")
+        self.phaseplus90 = QtWidgets.QPushButton(self.groupBox_9)
+        self.phaseplus90.setGeometry(QtCore.QRect(10, 50, 51, 23))
+        self.phaseplus90.setObjectName("phaseplus90")
         self.phasemin90 = QtWidgets.QPushButton(self.groupBox_9)
         self.phasemin90.setGeometry(QtCore.QRect(60, 50, 51, 23))
         self.phasemin90.setObjectName("phasemin90")
@@ -809,7 +809,7 @@ class Ui_Form(object):
         self.reference.setItemText(1, _translate("Form", "Freq"))
         self.reference.setItemText(2, _translate("Form", "Ampl"))
         self.reference.setItemText(3, _translate("Form", "Harm #"))
-        self.phaesplus90.setText(_translate("Form", "+90"))
+        self.phaseplus90.setText(_translate("Form", "+90"))
         self.phasemin90.setText(_translate("Form", "-90"))
         self.label_13.setText(_translate("Form", "Trig"))
         self.trigshape.setItemText(0, _translate("Form", "Sine"))
