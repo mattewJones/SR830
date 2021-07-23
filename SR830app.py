@@ -67,7 +67,7 @@ class SR830_widget(QtWidgets.QWidget):
         self.IHM.AutoPhaseButton.clicked.connect(self.autophase)
         self.IHM.AutoGainButton.clicked.connect(self.autogain)
         self.IHM.ReserveButton.clicked.connect(self.autoreserve)
-
+        self.IHM.setRefbutton.clicked.connect(self.setRef)
         self.IHM.phaseplus90.clicked.connect(self.phaseplus)
         self.IHM.phasemin90.clicked.connect(self.phasemin)
 
@@ -138,7 +138,11 @@ class SR830_widget(QtWidgets.QWidget):
         self.IHM.trigsource.setCurrentIndex(int(self.settings.trigsource))
 
     def autophase(self):
+        if self.running:
+            self.timer.stop()
         lockin.auto_phase()
+        if self.running:
+            self.timer.start(200)
 
     def autogain(self):
         if self.running:
@@ -155,12 +159,12 @@ class SR830_widget(QtWidgets.QWidget):
             self.timer.start(200)
 
     def setRef(self):
-        curval = float(self.newrefval.text())
-        refsel = app.reference.currentIndex()
+        curval = float(self.IHM.newrefval.text())
+        refsel = self.IHM.reference.currentIndex()
         if refsel == 0:
             lockin.set_phase(curval)
         elif refsel == 1:
-            pass
+            lockin.set_freq(curval)
         elif refsel == 2:
             lockin.set_ampl(curval)
         elif refsel == 3:

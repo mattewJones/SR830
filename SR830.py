@@ -145,6 +145,8 @@ class device:
         self.device.write('OFSL %i' % slope)
     def set_sync(self,sync):
         self.device.write('SYNC %i' % sync)      
+    def set_harm(self,harm):
+        self.device.write('HARM %i' % harm)
         
         
         
