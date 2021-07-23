@@ -70,6 +70,8 @@ class SR830_widget(QtWidgets.QWidget):
         self.IHM.setRefbutton.clicked.connect(self.setRef)
         self.IHM.phaseplus90.clicked.connect(self.phaseplus)
         self.IHM.phasemin90.clicked.connect(self.phasemin)
+        self.IHM.tauval.currentIndexChanged.connect(self.chgtau)
+        self.IHM.tauunit.currentIndexChanged.connect(self.chgtau)
 
     def show_window(self):
         self.show()
@@ -181,8 +183,8 @@ class SR830_widget(QtWidgets.QWidget):
         lockin.set_phase(newphase)
 
     def chgtau(self):
-        temptau = str(self.tauval.currentText()) + \
-            str(self.tauunit.currentText())
+        temptau = str(self.IHM.tauval.currentText()) + \
+            str(self.IHM.tauunit.currentText())
         if temptau in self.settings.tauset.values():
             for i in self.settings.tauset:
                 if temptau == self.settings.tauset[i]:
