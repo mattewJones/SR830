@@ -29,6 +29,23 @@ def update():
     w.IHM.Channel1.display('{:.2E}'.format(w.data.x[-1]))
     w.IHM.Channel2.display('{:.2E}'.format(w.data.y[-1]))
 
+    # updating time constant values too
+    w.settings.tau=lockin.get_tau()
+    tautext = w.settings.tauset.get(int(w.settings.tau))
+    tauval, tauunit = parse('{:d}{}', tautext)
+    w.IHM.tauunit.setCurrentIndex(w.IHM.tauunit.findText(tauunit))
+    w.IHM.tauval.setCurrentIndex(w.IHM.tauval.findText(str(tauval)))
+
+    # updating sens values too
+    # (both of those should be replaced by a call to getsettings)
+    # (there should also be a getdata method that is called here)
+    w.settings.sens = lockin.get_sens()
+    senstext = w.settings.sensset.get(int(w.settings.sens))
+    sensval, sensunit = parse('{:d}{}', senstext)
+    w.IHM.sensunit.setCurrentIndex(w.IHM.sensunit.findText(sensunit))
+    w.IHM.sensval.setCurrentIndex(
+        w.IHM.sensval.findText(str(sensval)))
+
     refsel = w.IHM.reference.currentIndex()
     if refsel == 0:
         w.data.phase.append(lockin.get_phase())
