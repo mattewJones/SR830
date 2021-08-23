@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'wid_display_SR830.ui'
+# Form implementation generated from reading ui file 'wid_Display_SR830.ui'
 #
 # Created by: PyQt5 UI code generator 5.12.3
 #
@@ -756,6 +756,9 @@ class Ui_Form(object):
         self.Channel1.setPalette(palette)
         self.Channel1.setDigitCount(9)
         self.Channel1.setObjectName("Channel1")
+        self.updateSettingsButton = QtWidgets.QPushButton(Form)
+        self.updateSettingsButton.setGeometry(QtCore.QRect(80, 220, 111, 41))
+        self.updateSettingsButton.setObjectName("updateSettingsButton")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -875,3 +878,4 @@ class Ui_Form(object):
         self.filterset.setItemText(1, _translate("Form", "Line"))
         self.filterset.setItemText(2, _translate("Form", "2 x Line"))
         self.filterset.setItemText(3, _translate("Form", "Line + 2 x Line"))
+        self.updateSettingsButton.setText(_translate("Form", "Update Settings"))

@@ -29,23 +29,6 @@ def update():
     w.IHM.Channel1.display('{:.2E}'.format(w.data.x[-1]))
     w.IHM.Channel2.display('{:.2E}'.format(w.data.y[-1]))
 
-    # updating time constant values too
-    w.settings.tau=lockin.get_tau()
-    tautext = w.settings.tauset.get(int(w.settings.tau))
-    tauval, tauunit = parse('{:d}{}', tautext)
-    w.IHM.tauunit.setCurrentIndex(w.IHM.tauunit.findText(tauunit))
-    w.IHM.tauval.setCurrentIndex(w.IHM.tauval.findText(str(tauval)))
-
-    # updating sens values too
-    # (both of those should be replaced by a call to getsettings)
-    # (there should also be a getdata method that is called here)
-    w.settings.sens = lockin.get_sens()
-    senstext = w.settings.sensset.get(int(w.settings.sens))
-    sensval, sensunit = parse('{:d}{}', senstext)
-    w.IHM.sensunit.setCurrentIndex(w.IHM.sensunit.findText(sensunit))
-    w.IHM.sensval.setCurrentIndex(
-        w.IHM.sensval.findText(str(sensval)))
-
     refsel = w.IHM.reference.currentIndex()
     if refsel == 0:
         w.data.phase.append(lockin.get_phase())
@@ -81,14 +64,20 @@ class SR830_widget(QtWidgets.QWidget):
 
         self.startmeas()
 
+        # connecting slots for some buttons
         self.IHM.AutoPhaseButton.clicked.connect(self.autophase)
         self.IHM.AutoGainButton.clicked.connect(self.autogain)
         self.IHM.ReserveButton.clicked.connect(self.autoreserve)
         self.IHM.setRefbutton.clicked.connect(self.setRef)
         self.IHM.phaseplus90.clicked.connect(self.phaseplus)
         self.IHM.phasemin90.clicked.connect(self.phasemin)
+
+        # connecting slots for some drop-down menus
         self.IHM.tauval.activated.connect(self.chgtau)
         self.IHM.tauunit.activated.connect(self.chgtau)
+
+        # getting settings only when asked
+        self.IHM.updateSettingsButton.clicked.connect(self.getSettingsWhileRunning)
 
     def show_window(self):
         self.show()
@@ -155,6 +144,17 @@ class SR830_widget(QtWidgets.QWidget):
         self.IHM.ch2_expand.setCurrentIndex(int(self.settings.ch2expand))
         self.IHM.trigshape.setCurrentIndex(int(self.settings.trigshape))
         self.IHM.trigsource.setCurrentIndex(int(self.settings.trigsource))
+
+    def getSettingsWhileRunning(self) :
+        """
+        getSettings, but it avoids clock problems
+        used with the update settings button.
+        """
+        if self.running:
+            self.timer.stop()
+        self.getsettings()
+        if self.running:
+            self.timer.start(200)
 
     def autophase(self):
         if self.running:

@@ -2331,6 +2331,19 @@
     <number>9</number>
    </property>
   </widget>
+  <widget class="QPushButton" name="updateSettingsButton">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>220</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Update Settings</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
